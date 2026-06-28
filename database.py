@@ -17,8 +17,8 @@ def connection():
             return con
 
     except m.Error as e:
-        print(f"connection failed: {e}")
-        return None
+            print(f"connection failed: {e}")
+            return None
 
              
 
@@ -27,14 +27,14 @@ def create():
 
     con = connection()
     if con is None:
-        return false
-    cur = con.cusor()
+            return false
+            cur = con.cusor()
 
-    query = "CREATE IF NOT EXISTS notepad;"
+            query = "CREATE IF NOT EXISTS notepad;" #NOT COMPLETED
 
-    cur.execute(query)
-    cur.close()
-    con.close()
+            cur.execute(query)
+            cur.close()
+            con.close()
 
 
 
