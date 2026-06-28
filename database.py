@@ -8,7 +8,7 @@ def connection():
         con = m.connect (
              host="localhost",
              user="root",
-             password="nihaltalent7",
+             password="password",
              database="notepad"
              )
        
@@ -30,7 +30,7 @@ def create():
         return false
     cur = con.cusor()
 
-    query = "CREATE IF NOT EXISTS notepad"
+    query = "CREATE IF NOT EXISTS notepad;"
 
     cur.execute(query)
     cur.close()
