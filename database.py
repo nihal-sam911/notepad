@@ -5,7 +5,7 @@ import mysql.connector as m
 
 class database :
     
-    def connection():
+    def connection(self):
         
         try:
             
@@ -29,18 +29,30 @@ class database :
              
 
 
-   def create():
-       h
-       con = connection()
+   def create(self):
+       
+       con = self.connection()
        if con is None:
-           
            return false
+           
            cur = con.cusor()
-           query = "CREATE IF NOT EXISTS notepad;" #NOT COMPLETED
+           query = "CREATE IF NOT EXISTS notepad( 
+                    id int auto_increment primary key,
+                    Title varchar(300) not null,
+                    content,
+                    UPDATED_AT timestamp default current_timestamp on update current_timestamp);"
 
            cur.execute(query)
+           con.commit()
            cur.close()
            con.close()
+
+
+
+
+
+
+#---------
 
 
 
