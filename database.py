@@ -20,7 +20,7 @@ class database :
                 print("successfully conencted")
                 return con
 
-            except m.Error as e:
+        except m.Error as e:
                 print(f"connection failed: {e}")
                 return None
           
@@ -29,14 +29,14 @@ class database :
        
        con = self.connection()
        if con is None:
-           return false
+           return False
            
-           cur = con.cusor()
-           query = "CREATE IF NOT EXISTS notepad( 
+           cur = con.cursor()
+           query = """CREATE TABLE IF NOT EXISTS notepad( 
                     id int auto_increment primary key,
                     Title varchar(300) not null,
                     content text,
-                    UPDATED_AT timestamp default current_timestamp on update current_timestamp);"
+                    UPDATED_AT timestamp default current_timestamp on update current_timestamp);"""
 
            cur.execute(query)
            con.commit()
@@ -49,6 +49,7 @@ class database :
 #---------creation-------
    def create_note(self, title, content):
        con = self.connection()
+       if con is None: return None
        cur = con.cursor()
        query = "INSERT INTO notepad (title, content) VALUES (%s, %s)"
        cur.execute(query, (title, content))
@@ -61,6 +62,7 @@ class database :
 #----------Delete---------
    def delete_note(self, note_id):
        con = self.connection()
+       if con is None: return None
        cur = con.cursor()
        query = "DELETE FROM notepad WHERE id = %s"
        cur.execute(query, (note_id,))
@@ -72,6 +74,7 @@ class database :
 #----------EDIT---------
    def EDIT_note(self, note_id,title,content):
        con = self.connection()
+       if con is None: return None
        cur = con.cursor()
        query = "UPDATE notepad SET title = %s, content = %s WHERE id = %s"
        cur.execute(query, (title,content,note_id))
@@ -83,8 +86,9 @@ class database :
 #----------VIEW---------
    def view_note(self, note_id):
        con = self.connection()
+       if con is None: return None
        cur = con.cursor()
-       query = "SELECT title, content FROM notes WHERE id = %s"
+       query = "SELECT title, content FROM notepad WHERE id = %s"
        cur.execute(query, (note_id,))
        note = cur.fetchone()
        con.commit()
@@ -93,10 +97,11 @@ class database :
        return note
 
 #----------for__slide_bar__list---------
-   def slidebar_note(self, note_id):
+   def slidebar_note(self):
        con = self.connection()
+       if con is None: return None
        cur = con.cursor()
-       query = "SELECT id, title FROM notes ORDER BY updated_at DESC"
+       query = "SELECT id, title FROM notepad ORDER BY updated_at DESC"
        cur.execute(query)
        r = cur.fetchall()
        cur.close()
