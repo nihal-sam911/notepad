@@ -23,13 +23,9 @@ class database :
             except m.Error as e:
                 print(f"connection failed: {e}")
                 return None
+          
 
-
-
-             
-
-
-   def create(self):
+   def create_table(self):
        
        con = self.connection()
        if con is None:
@@ -50,11 +46,69 @@ class database :
 
 
 
+#---------creation-------
+   def create_note(self, title, content):
+       con = self.connection()
+       cur = con.cursor()
+       query = "INSERT INTO notepad (title, content) VALUES (%s, %s)"
+       cur.execute(query, (title, content))
+       con.commit()
+       new_id = cur.lastrowid
+       cur.close()
+       con.close()
+       return new_id
+
+#----------Delete---------
+   def delete_note(self, note_id):
+       con = self.connection()
+       cur = con.cursor()
+       query = "DELETE FROM notepad WHERE id = %s"
+       cur.execute(query, (note_id,))
+       con.commit()
+       cur.close()
+       con.close()
+       return True
+
+#----------EDIT---------
+   def EDIT_note(self, note_id,title,content):
+       con = self.connection()
+       cur = con.cursor()
+       query = "UPDATE notepad SET title = %s, content = %s WHERE id = %s"
+       cur.execute(query, (title,content,note_id))
+       con.commit()
+       cur.close()
+       con.close()
+       return True
+
+#----------VIEW---------
+   def view_note(self, note_id):
+       con = self.connection()
+       cur = con.cursor()
+       query = "SELECT title, content FROM notes WHERE id = %s"
+       cur.execute(query, (note_id,))
+       note = cur.fetchone()
+       con.commit()
+       cur.close()
+       con.close()
+       return note
+
+#----------for__slide_bar__list---------
+   def slidebar_note(self, note_id):
+       con = self.connection()
+       cur = con.cursor()
+       query = "SELECT id, title FROM notes ORDER BY updated_at DESC"
+       cur.execute(query)
+       r = cur.fetchall()
+       cur.close()
+       con.close()
+       return r
 
 
-#---------
-
-
+       
+       
+       
+       
+       
 
 
 
