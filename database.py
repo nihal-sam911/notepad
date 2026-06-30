@@ -39,7 +39,7 @@ class database :
            query = "CREATE IF NOT EXISTS notepad( 
                     id int auto_increment primary key,
                     Title varchar(300) not null,
-                    content,
+                    content text,
                     UPDATED_AT timestamp default current_timestamp on update current_timestamp);"
 
            cur.execute(query)
