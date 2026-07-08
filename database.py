@@ -31,17 +31,17 @@ class database :
        if con is None:
            return False
            
-           cur = con.cursor()
-           query = """CREATE TABLE IF NOT EXISTS notepad( 
-                    id int auto_increment primary key,
-                    Title varchar(300) not null,
-                    content text,
-                    UPDATED_AT timestamp default current_timestamp on update current_timestamp);"""
+       cur = con.cursor()
+       query = """CREATE TABLE IF NOT EXISTS notepad( 
+                id int auto_increment primary key,
+                Title varchar(300) not null,
+                content text,
+                UPDATED_AT timestamp default current_timestamp on update current_timestamp);"""
 
-           cur.execute(query)
-           con.commit()
-           cur.close()
-           con.close()
+       cur.execute(query)
+       con.commit()
+       cur.close()
+       con.close()
 
 
 
