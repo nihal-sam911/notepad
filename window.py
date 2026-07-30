@@ -48,17 +48,21 @@ class main:
             return note
         return None
 
+
+  #
   def get_sidebar_list(self):
         notes = self.db.slidebar_note()
         return notes if notes is not None else []
 
-    def delete_current_note(self):
-        if self.current_note_id is None:
-            return False, "No note selected to delete."
 
-        success = self.db.delete_note(self.current_note_id)
-        if success:
-            self.current_note_id = None  
-            return True, "Note deleted successfully!"
-        return False, "Failed to delete note."
+# deletio
+  def delete_current_note(self):
+      if self.current_note_id is None:
+          return False, "No note selected to delete."
+
+      success = self.db.delete_note(self.current_note_id)
+      if success:
+          self.current_note_id = None  
+          return True, "Note deleted successfully!"
+       return False, "Failed to delete note."
     
