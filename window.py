@@ -13,7 +13,7 @@ import style
 class NotepadWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("CBSE Class 12 Notepad (PyQt6)")
+        self.setWindowTitle(" Notepad ")
         self.resize(900, 600)
 
         # Database Connection
