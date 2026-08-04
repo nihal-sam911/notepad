@@ -3,7 +3,7 @@
 import mysql.connector as m
 
 
-class database:
+class Database:
     
     def connection(self):
         
