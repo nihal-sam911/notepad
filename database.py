@@ -42,6 +42,7 @@ class Database:
        con.commit()
        cur.close()
        con.close()
+       return True
 
 
 
