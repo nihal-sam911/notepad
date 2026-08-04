@@ -1,9 +1,10 @@
+
 # window.py
 import sys
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout,
-    QListWidget, QLineEdit, QTextEdit, QPushButton, QMessageBox, QListWidgetItem)
-
+    QListWidget, QLineEdit, QTextEdit, QPushButton, QMessageBox, QListWidgetItem
+)
 from PyQt6.QtCore import Qt
 from database import Database
 import style
@@ -17,9 +18,12 @@ class NotepadWindow(QMainWindow):
 
         # Database Connection
         self.db = Database()
-        self.db.create_table()
+        if not self.db.create_table():
+            QMessageBox.critical(
+                self, "Database Error", 
+                "Could not connect to MySQL Database.\nPlease check your username, password, and server status in database.py."
+            )
 
-      
         self.current_note_id = None
         self.notes_data = []
 
@@ -87,14 +91,22 @@ class NotepadWindow(QMainWindow):
     # ----------------- APP LOGIC & DATABASE ---------------------------
 
     def load_sidebar_notes(self):
-        """Fetches notes from DB and populates the sidebar QListWidget."""
-        self.note_list.clear()
-        self.notes_data = self.db.slidebar_note() or []  
+        """Fetches notes from DB safely and populates the sidebar QListWidget."""
+        try:
+            self.note_list.clear()
+            self.notes_data = self.db.slidebar_note()
 
-        for note_id, title in self.notes_data:
-            item = QListWidgetItem(title)
-            item.setData(Qt.ItemDataRole.UserRole, note_id)
-            self.note_list.addItem(item)
+            if self.notes_data is None:
+                return
+
+            for note_data in self.notes_data:
+                if isinstance(note_data, (tuple, list)) and len(note_data) >= 2:
+                    note_id, title = note_data[0], note_data[1]
+                    item = QListWidgetItem(str(title))
+                    item.setData(Qt.ItemDataRole.UserRole, note_id)
+                    self.note_list.addItem(item)
+        except Exception as e:
+            print(f"Error loading sidebar notes: {e}")
 
     def clear_editor(self):
         """Clears text fields to create a brand new note."""
@@ -105,59 +117,77 @@ class NotepadWindow(QMainWindow):
 
     def save_note(self):
         """Handles creating a new note or updating an existing one."""
-        title = self.title_entry.text().strip()
-        content = self.content_text.toPlainText().strip()
+        try:
+            title = self.title_entry.text().strip()
+            content = self.content_text.toPlainText().strip()
 
-        if not title and not content:
-            QMessageBox.warning(self, "Warning", "Cannot save an empty note!")
-            return
+            if not title and not content:
+                QMessageBox.warning(self, "Warning", "Cannot save an empty note!")
+                return
 
-        if not title:
-            title = "Untitled Note"
+            if not title:
+                title = "Untitled Note"
 
-        if self.current_note_id is not None:
-          
-            success = self.db.EDIT_note(self.current_note_id, title, content)[cite: 1]
-            if success:
-                QMessageBox.information(self, "Success", "Note updated successfully!")
-        else:
-            
-            new_id = self.db.create_note(title, content)[cite: 1]
-            if new_id:
-                self.current_note_id = new_id
-                QMessageBox.information(self, "Success", "Note saved successfully!")
+            if self.current_note_id is not None:
+                success = self.db.EDIT_note(self.current_note_id, title, content)
+                if success:
+                    QMessageBox.information(self, "Success", "Note updated successfully!")
+                else:
+                    QMessageBox.critical(self, "Error", "Failed to update note in Database.")
+            else:
+                new_id = self.db.create_note(title, content)
+                if new_id:
+                    self.current_note_id = new_id
+                    QMessageBox.information(self, "Success", "Note saved successfully!")
+                else:
+                    QMessageBox.critical(self, "Error", "Failed to create note in Database.")
 
-        self.load_sidebar_notes()
+            self.load_sidebar_notes()
+        except Exception as e:
+            QMessageBox.critical(self, "Execution Error", f"An unexpected error occurred while saving: {e}")
 
     def on_note_select(self, item):
         """Loads selected note content into the editor."""
-        note_id = item.data(Qt.ItemDataRole.UserRole)
-        self.current_note_id = note_id
+        try:
+            note_id = item.data(Qt.ItemDataRole.UserRole)
+            if note_id is None:
+                return
 
-        note = self.db.view_note(note_id)[cite: 1]
-        if note:
-            self.title_entry.setText(note[0])  # Set title[cite: 1]
-            self.content_text.setPlainText(note[1] if note[1] else "")  # Set content[cite: 1]
+            self.current_note_id = note_id
+            note = self.db.view_note(note_id)
+
+            if note:
+                self.title_entry.setText(note[0] if note[0] else "")
+                self.content_text.setPlainText(note[1] if note[1] else "")
+            else:
+                QMessageBox.warning(self, "Error", "Could not retrieve note details.")
+        except Exception as e:
+            print(f"Error selecting note: {e}")
 
     def delete_note(self):
         """Deletes selected note from database."""
-        if self.current_note_id is None:
-            QMessageBox.warning(self, "Warning", "Please select a note to delete.")
-            return
+        try:
+            if self.current_note_id is None:
+                QMessageBox.warning(self, "Warning", "Please select a note to delete.")
+                return
 
-        confirm = QMessageBox.question(
-            self, 
-            "Confirm Delete", 
-            "Are you sure you want to delete this note?",
-            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
-        )
+            confirm = QMessageBox.question(
+                self, 
+                "Confirm Delete", 
+                "Are you sure you want to delete this note?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+            )
 
-        if confirm == QMessageBox.StandardButton.Yes:
-            success = self.db.delete_note(self.current_note_id)[cite: 1]
-            if success:
-                QMessageBox.information(self, "Success", "Note deleted.")
-                self.clear_editor()
-                self.load_sidebar_notes()
+            if confirm == QMessageBox.StandardButton.Yes:
+                success = self.db.delete_note(self.current_note_id)
+                if success:
+                    QMessageBox.information(self, "Success", "Note deleted.")
+                    self.clear_editor()
+                    self.load_sidebar_notes()
+                else:
+                    QMessageBox.critical(self, "Error", "Failed to delete note from Database.")
+        except Exception as e:
+            QMessageBox.critical(self, "Execution Error", f"An unexpected error occurred while deleting: {e}")
 
 
 if __name__ == "__main__":
@@ -165,4 +195,3 @@ if __name__ == "__main__":
     window = NotepadWindow()
     window.show()
     sys.exit(app.exec())
-    
