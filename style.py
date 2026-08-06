@@ -27,14 +27,14 @@ BASE_STYLE = """
         color: {fg_main};
     }}
     
-    /* Sidebar */
+    /* Sidebar*/
     QFrame#Sidebar {{
         background-color: {bg_sidebar};
         border-right: 1px solid {border_color};
     }}
     
     QLabel#SidebarTitle {{
-        background: transparent;  /* Fixes the background mismatch box */
+        background: transparent;  /* Eliminates background box mismatch */
         font-size: 28px;
         font-weight: 300;
         letter-spacing: 2px;
@@ -100,6 +100,7 @@ BASE_STYLE = """
 """
 
 PALETTES = {
+ 
     "Light": {
         "bg_main": "#ffffff",
         "bg_sidebar": "#f5f5f5",
@@ -124,6 +125,43 @@ PALETTES = {
         "border_color": "#333333",
         "accent": "#007acc",
     },
+    "Sepia": {
+        "bg_main": "#f4ecd8",
+        "bg_sidebar": "#ebe3d0",
+        "bg_btn": "#ebe3d0",
+        "bg_btn_hover": "#e0d7c3",
+        "bg_btn_active": "#d5cca8",
+        "fg_main": "#433422",
+        "fg_title": "#2b2013",
+        "fg_muted": "#8c7b65",
+        "border_color": "#dcd3c1",
+        "accent": "#a26a42",
+    },
+    "Midnight Blue": {
+        "bg_main": "#0f172a",
+        "bg_sidebar": "#1e293b",
+        "bg_btn": "#1e293b",
+        "bg_btn_hover": "#334155",
+        "bg_btn_active": "#475569",
+        "fg_main": "#cbd5e1",
+        "fg_title": "#f8fafc",
+        "fg_muted": "#64748b",
+        "border_color": "#334155",
+        "accent": "#38bdf8",
+    },
+    "Hacker": {
+        "bg_main": "#000000",
+        "bg_sidebar": "#000a00",
+        "bg_btn": "#001100",
+        "bg_btn_hover": "#003300",
+        "bg_btn_active": "#005500",
+        "fg_main": "#00ff00",
+        "fg_title": "#00ff00",
+        "fg_muted": "#008800",
+        "border_color": "#005500",
+        "accent": "#00ff00",
+    },
+    
     "Rose-Pine": {
         "bg_main": "#191724",
         "bg_sidebar": "#1f1d2e",
