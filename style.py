@@ -15,7 +15,7 @@ THEMES = {
         }
         QPushButton#SidebarToggle:hover { background-color: #007acc; }
         QFrame#Sidebar { background-color: #f8f9fa; border-right: 1px solid #e0e0e0; }
-        QLabel#SidebarTitle { color: #111111; font-weight: bold; }
+        QLabel#SidebarTitle { color: #111111; font-weight: bold; background-color: transparent; }
         QPushButton#NewNoteBtn { border: 2px solid #222222; background-color: #ffffff; color: #111111; border-radius: 6px; font-weight: bold; }
         QPushButton#NewNoteBtn:hover { background-color: #111111; color: #ffffff; }
         QToolButton { border: none; font-weight: bold; font-size: 20px; background: transparent; }
@@ -37,7 +37,7 @@ THEMES = {
         }
         QPushButton#SidebarToggle:hover { background-color: #007acc; }
         QFrame#Sidebar { background-color: #252526; border-right: 1px solid #333333; }
-        QLabel#SidebarTitle { color: #ffffff; font-weight: bold; }
+        QLabel#SidebarTitle { color: #ffffff; font-weight: bold; background-color: transparent; }
         QPushButton#NewNoteBtn { border: 2px solid #cccccc; background-color: #2d2d2d; color: #ffffff; border-radius: 6px; font-weight: bold; }
         QPushButton#NewNoteBtn:hover { background-color: #ffffff; color: #111111; }
         QToolButton { border: none; font-weight: bold; font-size: 20px; color: #cccccc; background: transparent; }
@@ -59,7 +59,7 @@ THEMES = {
         }
         QPushButton#SidebarToggle:hover { background-color: #8c7b65; }
         QFrame#Sidebar { background-color: #ebe3d0; border-right: 1px solid #dcd3c1; }
-        QLabel#SidebarTitle { color: #433422; font-weight: bold; }
+        QLabel#SidebarTitle { color: #433422; font-weight: bold; background: transparent; }
         QPushButton#NewNoteBtn { border: 2px solid #433422; background-color: #ebe3d0; color: #433422; border-radius: 6px; font-weight: bold; }
         QPushButton#NewNoteBtn:hover { background-color: #433422; color: #f4ecd8; }
         QToolButton { border: none; font-weight: bold; font-size: 20px; color: #433422; background: transparent; }
@@ -80,7 +80,7 @@ THEMES = {
         }
         QPushButton#SidebarToggle:hover { background-color: #38bdf8; }
         QFrame#Sidebar { background-color: #1e293b; border-right: 1px solid #334155; }
-        QLabel#SidebarTitle { color: #f8fafc; font-weight: bold; }
+        QLabel#SidebarTitle { color: #f8fafc; font-weight: bold; background-color: transparent;}
         QPushButton#NewNoteBtn { border: 2px solid #cbd5e1; background-color: #1e293b; color: #f8fafc; border-radius: 6px; font-weight: bold; }
         QPushButton#NewNoteBtn:hover { background-color: #cbd5e1; color: #0f172a; }
         QToolButton { border: none; font-weight: bold; font-size: 20px; color: #cbd5e1; background: transparent; }
@@ -101,7 +101,7 @@ THEMES = {
         }
         QPushButton#SidebarToggle:hover { background-color: #00ff00; }
         QFrame#Sidebar { background-color: #000a00; border-right: 1px solid #005500; }
-        QLabel#SidebarTitle { color: #00ff00; font-weight: bold; }
+        QLabel#SidebarTitle { color: #00ff00; font-weight: bold; background-color: transparent; }
         QPushButton#NewNoteBtn { border: 2px solid #00ff00; background-color: #000000; color: #00ff00; border-radius: 0px; font-weight: bold; }
         QPushButton#NewNoteBtn:hover { background-color: #00ff00; color: #000000; }
         QToolButton { border: none; font-weight: bold; font-size: 20px; color: #00ff00; background: transparent; }
@@ -122,7 +122,7 @@ THEMES = {
         }
         QPushButton#SidebarToggle:hover { background-color: #ebbcba; }
         QFrame#Sidebar { background-color: #1f1d2e; border-right: 1px solid #26233a; }
-        QLabel#SidebarTitle { color: #eb6f92; font-weight: bold; }
+        QLabel#SidebarTitle { color: #eb6f92; font-weight: bold; background-color: transparent; }
         QPushButton#NewNoteBtn { border: 2px solid #ebbcba; background-color: #1f1d2e; color: #ebbcba; border-radius: 6px; font-weight: bold; }
         QPushButton#NewNoteBtn:hover { background-color: #ebbcba; color: #191724; }
         QToolButton { border: none; font-weight: bold; font-size: 20px; color: #e0def4; background: transparent; }
@@ -144,7 +144,7 @@ THEMES = {
         }
         QPushButton#SidebarToggle:hover { background-color: #fe8019; }
         QFrame#Sidebar { background-color: #1d2021; border-right: 1px solid #3c3836; }
-        QLabel#SidebarTitle { color: #fabd2f; font-weight: bold; }
+        QLabel#SidebarTitle { color: #fabd2f; font-weight: bold; background-color: transparent;}
         QPushButton#NewNoteBtn { border: 2px solid #fabd2f; background-color: #1d2021; color: #fabd2f; border-radius: 6px; font-weight: bold; }
         QPushButton#NewNoteBtn:hover { background-color: #fabd2f; color: #282828; }
         QToolButton { border: none; font-weight: bold; font-size: 20px; color: #ebdbb2; background: transparent; }
@@ -166,7 +166,7 @@ THEMES = {
         }
         QPushButton#SidebarToggle:hover { background-color: #57cc99; }
         QFrame#Sidebar { background-color: #15282b; border-right: 1px solid #284b50; }
-        QLabel#SidebarTitle { color: #80ed99; font-weight: bold; }
+        QLabel#SidebarTitle { color: #80ed99; font-weight: bold; background-color: transparent; }
         QPushButton#NewNoteBtn { border: 2px solid #80ed99; background-color: #15282b; color: #80ed99; border-radius: 6px; font-weight: bold; }
         QPushButton#NewNoteBtn:hover { background-color: #80ed99; color: #0d1b1e; }
         QToolButton { border: none; font-weight: bold; font-size: 20px; color: #d0e1d4; background: transparent; }
