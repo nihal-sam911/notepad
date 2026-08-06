@@ -6,7 +6,7 @@ class Database:
             con = m.connect(
                 host="localhost",
                 user="root",
-                password="YourNewPassword123!", # Make sure this matches your MySQL password
+                password="password",
                 database="notepad"
             )
             if con.is_connected():
@@ -20,7 +20,7 @@ class Database:
             temp_con = m.connect(
                 host="localhost",
                 user="root",
-                password="YourNewPassword123!" # Make sure this matches too
+                password="password" 
             )
             if temp_con.is_connected():
                 temp_cur = temp_con.cursor()
