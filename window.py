@@ -177,12 +177,12 @@ class GraphiteWindow(QMainWindow):
         title_layout.addWidget(self.btn_save)
 
         # Meta Data Label
-        self.meta_label = QLabel("Start Typing...")
+        self.meta_label = QLabel("")
         self.meta_label.setObjectName("MetaData")
 
         # Text Area
         self.text_area = QTextEdit()
-        self.text_area.setPlaceholderText("start Typing")
+        self.text_area.setPlaceholderText("start Typing...")
         self.text_area.setFont(QFont("Segoe UI", 12))
         self.text_area.textChanged.connect(self.update_char_count_only)
         self.text_area.textChanged.connect(self.trigger_edit_mode)
