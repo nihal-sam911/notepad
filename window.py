@@ -3,8 +3,8 @@ from datetime import datetime
 from PyQt6.QtWidgets import (QApplication, QMainWindow, QWidget, QHBoxLayout, 
                              QVBoxLayout, QFrame, QLabel, QPushButton, QLineEdit, 
                              QTextEdit, QToolButton, QMenu, QScrollArea, QSizePolicy)
-from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve
-from PyQt6.QtGui import QAction, QFont,QIcon
+from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QSettings
+from PyQt6.QtGui import QAction, QFont, QIcon
 
 from database import Database
 from style import THEMES
@@ -15,7 +15,7 @@ class NoteListItem(QWidget):
         super().__init__()
         self.note_id = note_id
         self.main_window = main_window
-        
+
         layout = QHBoxLayout(self)
         layout.setContentsMargins(5, 5, 5, 5)
         
@@ -62,6 +62,10 @@ class GraphiteWindow(QMainWindow):
         self.setWindowTitle("GRAPHITE")
         self.resize(950, 650)
         self.setWindowIcon(QIcon("logo.png"))  
+
+        # Initialize persistent settings
+        self.settings = QSettings("GraphiteApp", "ThemeSettings")
+
         self.db = Database()
         self.db.create_table()
         
@@ -70,7 +74,11 @@ class GraphiteWindow(QMainWindow):
         self.saved_timestamp = ""
         
         self.setup_ui()
-        self.apply_theme("Sepia")
+        
+        
+        saved_theme = self.settings.value("theme", "Sepia")
+        self.apply_theme(saved_theme)
+
         self.load_sidebar_notes()
 
     def setup_ui(self):
@@ -90,7 +98,7 @@ class GraphiteWindow(QMainWindow):
         sidebar_layout.setContentsMargins(15, 15, 15, 15)
         sidebar_layout.setSpacing(12)
 
-        # Top Bar: Big "NOTES" title on left, 3-dots Settings menu on right
+        # Top Bar(Big "NOTES" title)
         top_sidebar_layout = QHBoxLayout()
         notes_title = QLabel("NOTES")
         notes_title.setObjectName("SidebarTitle")
@@ -137,7 +145,7 @@ class GraphiteWindow(QMainWindow):
         content_layout.setContentsMargins(0, 0, 0, 0)
         content_layout.setSpacing(0)
 
-        # Sidebar Toggle handle bar (Stays visible on left edge when sidebar collapses)
+        # Sidebar Toggle handle bar
         self.toggle_btn = QPushButton("")
         self.toggle_btn.setObjectName("SidebarToggle")
         self.toggle_btn.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -198,7 +206,9 @@ class GraphiteWindow(QMainWindow):
         main_layout.addWidget(self.content_area)
 
     def apply_theme(self, theme_name):
-        self.setStyleSheet(THEMES[theme_name])
+        if theme_name in THEMES:
+            self.setStyleSheet(THEMES[theme_name])
+            self.settings.setValue("theme", theme_name)
 
     def toggle_sidebar(self):
         current_width = self.sidebar.width()
@@ -258,7 +268,7 @@ class GraphiteWindow(QMainWindow):
             self.title_input.setText(note[0])
             self.text_area.setPlainText(note[1])
             
-            # Use stored database timestamp from MySQL tuple (index 2: updated_at)
+         
             if len(note) >= 3 and note[2]:
                 if isinstance(note[2], datetime):
                     self.saved_timestamp = note[2].strftime("%d %B %I:%M %p")
@@ -277,7 +287,7 @@ class GraphiteWindow(QMainWindow):
         title = self.title_input.text().strip() or "Untitled"
         content = self.text_area.toPlainText()
         
-        # Capture current time only when saving changes
+    
         self.saved_timestamp = datetime.now().strftime("%d %B %I:%M %p")
         
         if self.current_note_id is None:
