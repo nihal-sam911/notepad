@@ -31,7 +31,10 @@ class Database:
         except m.Error as e:
             print(f"Failed to create database: {e}")
             return False
-
+        else:
+            print("Table created successfully.")
+            return True
+            
         
         try:
             con = self.connection()
