@@ -1,0 +1,25 @@
+=======================================
+   GRAPHITE NOTE-TAKING APP - SETUP
+=======================================
+
+Welcome to Graphite! 
+
+NO PYTHON REQUIRED:
+This application has been fully packaged into a standalone executable (window.exe). You do NOT need to install Python, and you do NOT need any .py source code files to run this app. 
+
+HOW TO CONNECT YOUR DATABASE:
+Because Graphite saves your notes securely on your own computer, it requires a local MySQL server to run.
+
+Before opening the app, you need to tell it your MySQL password:
+1. Open the "config.txt" file included in this folder.
+2. You will see the text: ENTER YOUR PASSWORD ONLY HERE
+3. Delete that text entirely and type your personal MySQL root password.
+4. Save the file and close it.
+
+HOW TO RUN THE APP:
+1. Make sure window.exe, logo.png, config.txt, and this INSTRUCTIONS.txt file are all in the same folder together.
+2. Double-click "window.exe" to launch Graphite.
+
+On the very first launch, the app will automatically create the "notepad" database and all necessary tables for you in MySQL.
+
+Enjoy!
