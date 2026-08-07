@@ -1,12 +1,21 @@
 import mysql.connector as m
+import os
 
+def get_password():
+    try:
+        with open("password.txt", "r") as file:
+            return file.read().strip()
+    except FileNotFoundError:
+        print('NO password.txt FOUND')
+
+    
 class Database:
     def connection(self):
         try:
             con = m.connect(
                 host="localhost",
                 user="root",
-                password="password",
+                password=get_password(),
                 database="notepad"
             )
             if con.is_connected():
@@ -20,7 +29,7 @@ class Database:
             temp_con = m.connect(
                 host="localhost",
                 user="root",
-                password="password" 
+                password=get_password() 
             )
             if temp_con.is_connected():
                 temp_cur = temp_con.cursor()
@@ -29,12 +38,9 @@ class Database:
                 temp_cur.close()
                 temp_con.close()
         except m.Error as e:
-            print(f"Failed to create database: {e}")
+            print(f"Failed to create database (1): {e}")
             return False
-        else:
-            print("Table created successfully.")
-            return True
-            
+
         
         try:
             con = self.connection()
@@ -52,8 +58,12 @@ class Database:
             con.close()
             return True 
         except m.Error as e:
-            print(f"Failed to create table: {e}")
+            print(f"Failed to create table (2): {e}")
             return False
+        else:
+            print("Table created successfully.")
+            return True
+        
 
     def create_note(self, title, content):
         try:
