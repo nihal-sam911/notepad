@@ -3,6 +3,10 @@
 =======================================
 
 Welcome to Graphite! 
+ 
+
+NO PYTHON REQUIRED:
+This application has been fully packaged into a standalone executable (window.exe). You do NOT need to install Python, and you do NOT need any .py source code files to run this app. 
 
 ---------------------------------------
 1. DATABASE CONFIGURATION (ALL SYSTEMS)
@@ -10,7 +14,7 @@ Welcome to Graphite!
 Because Graphite saves your notes securely on your own computer, it requires a local MySQL server running on your system.
 
 Before opening the app:
-1. Open the "config.txt" file included in this folder.
+1. Open the "password.txt" file included in this folder.
 2. You will see the text: ENTER YOUR PASSWORD ONLY HERE
 3. Delete that text entirely and type your personal MySQL root password.
 4. Save and close the file.
@@ -19,8 +23,8 @@ Before opening the app:
 2. RUNNING ON WINDOWS
 ---------------------------------------
 No Python installation required!
-1. Ensure window.exe, logo.png, config.txt, and INSTRUCTIONS.txt are in the same folder.
-2. Double-click "window.exe" to launch Graphite.
+1. Ensure GRAPHITE.exe, logo.png, password.txt are in the same folder.
+2. Double-click "GRAPHITE.exe" to launch Graphite.
 
 ---------------------------------------
 3. RUNNING ON LINUX
@@ -31,13 +35,13 @@ Option A: Using Wine (To run window.exe directly)
 2. Ensure your MySQL service is running:
    `sudo systemctl start mysql`
 3. Open a terminal inside this extracted folder and run:
-   `wine window.exe`
+   `wine GRAPHITE.exe`
 
 Option B: Running via Python (If using the source code)
 1. Install the required Python packages:
    `pip install PyQt6 mysql-connector-python`
 2. Run the application:
-   `python3 window.py`
+   `python3 GRAPHITE.py`
 
 On the very first launch, the app will automatically create the "notepad" database and all necessary tables for you in MySQL.
 
